@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/01 15:53:40 by tcohen           ###   ########.fr       */
+/*   Created: 2024/11/01 15:24:09 by tcohen            #+#    #+#             */
+/*   Updated: 2024/11/01 15:55:33 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	*routine(void *ptr)
+static int	ft_check_argc(int argc)
 {
-	(void)ptr;
-	printf("test from thread\n");
-	return (NULL);
+	if (argc < 5 || argc > 6)
+		return (1);
+	return (0);
 }
 
-int main(int argc, char **argv)
+static int ft_check_argv(char **argv)
 {
-	pthread_t	t1, t2;
-	pthread_mutex_t mutex;
+	char	**tab;
+	int		i;
 
-	if (ft_check_arg(argc, argv) == 1)
-		return (error_format(), 1);
-	pthread_mutex_init(&mutex, NULL);
-	pthread_create(&t1, NULL, &routine, NULL);
-	pthread_create(&t2, NULL, &routine, NULL);
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-	pthread_mutex_destroy(&mutex);
+	tab = argv + 1;
+	i = 0;
+	while(tab[i])
+	{
+		if (ft_isnbr(tab[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int ft_check_arg(int argc, char **argv)
+{
+	if (ft_check_argc(argc) == 1)
+		return (1);
+	if (ft_check_argv(argv) == 1)
+		return (1);
 	return (0);
 }
