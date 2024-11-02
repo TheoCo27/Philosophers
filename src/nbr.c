@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nbr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:29:28 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/01 18:18:40 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:55:39 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int ft_isnbr(char *str)
 	}
 	return (1);
 }
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	result;
-	int	sign;
-	int	i;
+	long	result;
+	long	sign;
+	long	i;
 
 	i = 0;
 	sign = 1;
