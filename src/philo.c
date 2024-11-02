@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/01 22:00:28 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/02 13:43:03 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 		return (error_format(), 1);
 	memset(&table, 0, sizeof(t_table));
 	set_table(&table, argv, argc);
-	print_table(&table);
+	ft_create_philos(&table);
+	wait_all_threads(table.philo);
 	return (0);
 }
 

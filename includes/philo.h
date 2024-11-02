@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 13:15:12 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/02 14:12:08 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct	s_philo
 	int		time_eat;
 	int		time_sleep;
 	int		nb_meals;
-	pthread_t *thread;
+	pthread_t *thread_add;
+	pthread_t thread;
 }		t_philo;
 
 typedef struct s_table
@@ -55,9 +56,15 @@ void	ft_putstr_fd(char *s, int fd);
 void	error_format(void);
 //set.c
 void	set_table(t_table *table, char **argv, int argc);
+int	ft_create_philos(t_table *table);
 //print.c
 void	print_table(t_table *table);
 void	print_philo(t_philo *philo);
 //philo.c
 void	*routine(void *ptr);
+//secure.c
+int make_thread(pthread_t *thread, void* (*routine)(void *));
+int wait_thread(pthread_t thread);
+int wait_all_threads(t_philo **philo);
+int make_all_threads(t_philo **philo);
 #endif

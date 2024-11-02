@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 13:17:40 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/02 14:01:26 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,24 @@ int	ft_create_philos(t_table *table)
 	t_philo **philos;
 
 	i = 0;
-	table->philo = malloc(sizeof(t_philo) * (table->nb_philo + 1));
+	table->philo = malloc(sizeof(t_philo *) * (table->nb_philo + 1));
 	if (!table->philo)
 		return (-1);
 	philos = table->philo;
-	philos[table->nb_philo] = NULL;
 	while(i < table->nb_philo)
 	{
+		philos[i] = malloc(sizeof(t_philo));
+		if (!philos[i])
+			return(-1);//free_all
 		philos[i]->id = i;
 		philos[i]->nb_meals = table->nb_meals;
 		philos[i]->time_die = table->time_die;
 		philos[i]->time_eat = table->time_eat;
 		philos[i]->time_sleep = table->time_sleep;
-		philos[i]->thread = NULL;
+		philos[i]->thread_add = NULL;
+		i++;
 	}
+	philos[table->nb_philo] = NULL;
+	make_all_threads(philos);
 	return (0);
 }
