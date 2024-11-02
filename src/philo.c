@@ -3,19 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 13:43:03 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/02 20:01:32 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	*routine(void *ptr)
+void	*routine(void *arg)
 {
-	(void)ptr;
+	t_philo *philo;
+	t_table *table;
+
+	philo = (t_philo *)arg;
+	table = (t_table *)philo->table;
+	print_table(table);
 	printf("test from thread\n");
+	while(1)
+	{
+		if (table->status == DINNER_OVER)
+			break;
+	}
 	return (NULL);
 }
 
@@ -29,6 +39,7 @@ int main(int argc, char **argv)
 	set_table(&table, argv, argc);
 	ft_create_philos(&table);
 	wait_all_threads(table.philo);
+	destroy_philos(table.philo);
 	return (0);
 }
 

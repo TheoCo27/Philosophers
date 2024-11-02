@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 14:12:08 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/02 20:01:01 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define DINNER_OVER 27
+
 typedef struct	s_philo
 {
 	int		id;
@@ -27,8 +29,11 @@ typedef struct	s_philo
 	int		time_eat;
 	int		time_sleep;
 	int		nb_meals;
-	pthread_t *thread_add;
-	pthread_t thread;
+	pthread_t	*thread_add;
+	pthread_t	thread;
+	pthread_mutex_t *last_meal_lock;
+	long			last_meal_time;
+	void		*table;
 }		t_philo;
 
 typedef struct s_table
@@ -38,9 +43,9 @@ typedef struct s_table
 	int		time_eat;
 	int		time_sleep;
 	int		nb_meals;
+	int		status;
 	t_philo **philo;
 }				t_table;
-
 
 //time.c
 long	put_timestamp(int reset);
@@ -63,8 +68,10 @@ void	print_philo(t_philo *philo);
 //philo.c
 void	*routine(void *ptr);
 //secure.c
-int make_thread(pthread_t *thread, void* (*routine)(void *));
+int make_thread(pthread_t *thread, void* (*routine)(void *), t_philo *philo);
 int wait_thread(pthread_t thread);
 int wait_all_threads(t_philo **philo);
 int make_all_threads(t_philo **philo);
+//free.c
+void	destroy_philos(t_philo **philo);
 #endif

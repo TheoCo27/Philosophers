@@ -1,23 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 15:43:45 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 15:28:29 by tcohen           ###   ########.fr       */
+/*   Created: 2024/11/02 19:20:59 by tcohen            #+#    #+#             */
+/*   Updated: 2024/11/02 19:32:19 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	error_format(void)
+void	free_philo_tab(t_philo **philo)
 {
-	ft_putstr_fd("Error need:\n", 2);
-	ft_putstr_fd("<nbr_of_philo>\n", 2);
-	ft_putstr_fd("<time_to_die>\n", 2);
-	ft_putstr_fd("<time_to_eat>\n", 2);
-	ft_putstr_fd("<time_to_sleep>\n", 2);
-	ft_putstr_fd("optional: <nbr_of_times_philo_need_to_eat>\n", 2);
+	int i;
+
+	i = 0;
+	while(philo[i])
+	{
+		free(philo[i]);
+		i++;
+	}
+	free(philo);
+}
+
+void	clean_philo(t_philo *philo)
+{
+	pthread_mutex_destroy(philo->last_meal_lock);
+}
+
+void	destroy_philos(t_philo **philo)
+{
+	int i;
+
+	i = 0;
+	while(philo[i])
+	{
+		clean_philo(philo[i]);
+		i++;
+	}
+	free_philo_tab(philo);
 }
