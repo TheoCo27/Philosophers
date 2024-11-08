@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 19:20:59 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 19:32:19 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:27:19 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	destroy_philos(t_philo **philo)
 	i = 0;
 	while(philo[i])
 	{
-		clean_philo(philo[i]);
+		//clean_philo(philo[i]);
 		i++;
 	}
 	free_philo_tab(philo);

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 20:01:01 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:20:03 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_table
 
 //time.c
 long	put_timestamp(int reset);
+long	get_timestamp(void);
 //nbr.c
 int		ft_isnbr(char *str);
 long	ft_atol(const char *str);
@@ -74,4 +75,10 @@ int wait_all_threads(t_philo **philo);
 int make_all_threads(t_philo **philo);
 //free.c
 void	destroy_philos(t_philo **philo);
+//safe.c
+int	safe_read(int *to_read, pthread_mutex_t *lock);
+int	safe_edit(int *to_edit, int update, pthread_mutex_t *lock);
+int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo);
+//prediction.c
+void	predict_death(t_table *table);
 #endif

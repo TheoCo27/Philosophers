@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:09:08 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/08 15:15:43 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:11:52 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@ int	safe_edit(int *to_edit, int update, pthread_mutex_t *lock)
 	return (update);
 }
 
-int safe_speak(char *to_say, pthread_mutex_t *lock)
+int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
 {
-	
+	long	time_stamp;
+
+	time_stamp = get_timestamp();
 	pthread_mutex_lock(lock);
-	printf("")
+	printf("%ld %d %s\n", time_stamp, philo->id, to_say);
+	pthread_mutex_unlock(lock);
+	return (0);
 }

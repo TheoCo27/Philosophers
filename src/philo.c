@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 20:01:32 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:26:38 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*routine(void *arg)
 	table = (t_table *)philo->table;
 	print_table(table);
 	printf("test from thread\n");
-	while(1)
-	{
-		if (table->status == DINNER_OVER)
-			break;
-	}
+	// while(1)
+	// {
+	// 	if (table->status == DINNER_OVER)
+	// 		break;
+	// }
 	return (NULL);
 }
 

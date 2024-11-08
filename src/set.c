@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 20:06:20 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:25:37 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_table(t_table *table, char **argv, int argc)
 
 void	set_philo(t_philo *philo, int i, t_table *table)
 {
-	philo->id = i;
+	philo->id = i + 1;
 	philo->nb_meals = table->nb_meals;
 	philo->time_die = table->time_die;
 	philo->time_eat = table->time_eat;
@@ -35,7 +35,7 @@ void	set_philo(t_philo *philo, int i, t_table *table)
 	philo->thread_add = NULL;
 	philo->table = (void *)table;
 	philo->last_meal_time = -1;
-	pthread_mutex_init(philo->last_meal_lock, NULL);
+	//pthread_mutex_init(philo->last_meal_lock, NULL);
 }
 
 int	ft_create_philos(t_table *table)
@@ -48,8 +48,8 @@ int	ft_create_philos(t_table *table)
 	table->philo = malloc(sizeof(t_philo *) * (table->nb_philo + 1));
 	if (!table->philo)
 		return (-1);
-	philos[table->nb_philo] = NULL;
 	philos = table->philo;
+	philos[table->nb_philo] = NULL;
 	while(i < table->nb_philo)
 	{
 		philos[i] = malloc(sizeof(t_philo));
