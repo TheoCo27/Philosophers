@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:21:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 15:33:38 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 16:27:30 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_time(void)
 	timestamp_ms = 0;
 	if (gettimeofday(&tv, NULL) == -1)
 		return (-1);
-	timestamp_ms = tv.tv_sec * 1000L + tv.tv_usec / 1000;
+	timestamp_ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (timestamp_ms);
 }
 

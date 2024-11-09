@@ -6,7 +6,7 @@
 #    By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 18:10:16 by tcohen            #+#    #+#              #
-#    Updated: 2024/11/09 15:29:48 by tcohen           ###   ########.fr        #
+#    Updated: 2024/11/09 19:42:11 by tcohen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 CC = cc
 
 # Options de compilation
-CFLAGS = -Wall -Wextra -Werror -pthread -I includes -g3
+CFLAGS = -Wall -Wextra -Werror -pthread -I includes -g3 
 
 # Dossiers
 SRC_DIR = src
