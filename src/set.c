@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 13:49:33 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:26:02 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	set_table(t_table *table, char **argv, int argc)
 	if (argc == 5)
 		table->nb_meals = -1;
 	pthread_mutex_init(&table->speaker, NULL);
+	pthread_mutex_init(&table->status_lock, NULL);
 	set_forks_mutex(table); // a proteger
 }
 
 void	set_philo(t_philo *philo, int i, t_table *table)
 {
-	printf("i = %d\n", i);
 	philo->id = i + 1;
 	philo->nb_meals = table->nb_meals;
 	philo->time_die = table->time_die;
@@ -56,8 +56,12 @@ void	set_philo(t_philo *philo, int i, t_table *table)
 	philo->time_sleep = table->time_sleep;
 	philo->thread_add = NULL;
 	philo->table = (void *)table;
-	philo->last_meal_time = -1;
+	philo->last_meal_time = get_timestamp();
 	philo->left_fork = table->forks[i];
+	if (philo->id != 1 && philo->id == table->nb_philo)
+		philo->right_fork = table->forks[0];
+	if (table->nb_philo != 1 && philo->id != table->nb_philo)
+		philo->right_fork = table->forks[i + 1];
 	pthread_mutex_init(&philo->last_meal_lock, NULL);
 	philo->speaker = &table->speaker;
 }

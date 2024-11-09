@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 12:03:26 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:44:47 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = (t_table *)philo->table;
-	print_table(table);
-	printf("test from thread\n");
-	// while(1)
-	// {
-	// 	if (table->status == DINNER_OVER)
-	// 		break;
-	// }
+	while(safe_read(&table->status, &table->status_lock) == OK)
+	{
+		usleep(1000);
+		safe_speak("test", &table->speaker, philo);
+		usleep(1000);
+	}
 	return (NULL);
 }
 
@@ -39,6 +38,7 @@ int main(int argc, char **argv)
 	set_table(&table, argv, argc);
 	predict_death(&table);
 	ft_create_philos(&table);
+	watch_philos(&table);
 	wait_all_threads(table.philo);
 	destroy_philos(table.philo);
 	return (0);

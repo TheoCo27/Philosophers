@@ -6,16 +6,16 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:21:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/02 19:33:55 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:33:38 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long	get_time(void)
+int	get_time(void)
 {
 	struct timeval	tv;
-	long			timestamp_ms;
+	int			timestamp_ms;
 
 	memset(&tv, 0, sizeof(struct timeval));
 	timestamp_ms = 0;
@@ -25,9 +25,9 @@ long	get_time(void)
 	return (timestamp_ms);
 }
 
-long	get_start_time(int reset)
+int	get_start_time(int reset)
 {
-	static long		start_timestamp;
+	static int		start_timestamp;
 
 	if (reset == 1)
 		return (start_timestamp = 0, 0);
@@ -37,10 +37,10 @@ long	get_start_time(int reset)
 	return (start_timestamp);
 }
 
-long	get_timestamp(void)
+int	get_timestamp(void)
 {
-	long	timestamp_ms;
-	long	start_timestamp;
+	int	timestamp_ms;
+	int	start_timestamp;
 
 	start_timestamp = get_start_time(0);
 	timestamp_ms = get_time();
@@ -49,11 +49,11 @@ long	get_timestamp(void)
 }
 
 
-long	put_timestamp(int reset)
+int	put_timestamp(int reset)
 {
 	struct timeval	tv;
-	static long		start_timestamp;
-	long			timestamp_ms;
+	static int		start_timestamp;
+	int			timestamp_ms;
 
 	if (reset == 1)
 		return (start_timestamp = 0, 0);
@@ -65,6 +65,6 @@ long	put_timestamp(int reset)
 		start_timestamp = tv.tv_sec * 1000L + tv.tv_usec / 1000;
 	timestamp_ms = tv.tv_sec * 1000L + tv.tv_usec / 1000;
 	timestamp_ms = timestamp_ms - start_timestamp;
-	printf("timestamp em millisecondes: %ld ms\n", timestamp_ms);
+	printf("timestamp em millisecondes: %d ms\n", timestamp_ms);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 13:17:02 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:33:23 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*speaker;
-	long			last_meal_time;
+	int			last_meal_time;
 	void		*table;
 }		t_philo;
 
@@ -51,11 +51,12 @@ typedef struct s_table
 	t_philo **philo;
 	pthread_mutex_t	**forks;
 	pthread_mutex_t	speaker;
+	pthread_mutex_t	status_lock;
 }				t_table;
 
 //time.c
-long	put_timestamp(int reset);
-long	get_timestamp(void);
+int	put_timestamp(int reset);
+int	get_timestamp(void);
 //nbr.c
 int		ft_isnbr(char *str);
 long	ft_atol(const char *str);
@@ -87,4 +88,6 @@ int	safe_edit(int *to_edit, int update, pthread_mutex_t *lock);
 int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo);
 //prediction.c
 void	predict_death(t_table *table);
+//watchers.c
+void	watch_philos(t_table *table);
 #endif

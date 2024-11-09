@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 19:20:59 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 13:53:16 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:10:04 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	clean_table(t_table *table)
 
 	i = 0;
 	pthread_mutex_destroy(&table->speaker);
+	pthread_mutex_destroy(&table->status_lock);
 	destroy_forks(table);
 }
 
