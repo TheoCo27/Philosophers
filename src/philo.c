@@ -6,24 +6,31 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 15:44:47 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 16:20:17 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <stdlib.h>
 
 void	*routine(void *arg)
 {
 	t_philo *philo;
 	t_table *table;
+	int status;
+	char c;
 
+	status = 0;
 	philo = (t_philo *)arg;
 	table = (t_table *)philo->table;
 	while(safe_read(&table->status, &table->status_lock) == OK)
 	{
-		usleep(1000);
+		status = safe_read(&table->status, &table->status_lock);
+		c = status + '0';
+		safe_speak(&c, &table->speaker, philo);
+		sleep(1);
 		safe_speak("test", &table->speaker, philo);
-		usleep(1000);
+		sleep(1);
 	}
 	return (NULL);
 }
