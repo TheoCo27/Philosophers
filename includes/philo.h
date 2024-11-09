@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/08 17:20:03 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 13:17:02 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define DINNER_OVER 27
+# define OK 0
+# define KO 1
 
 typedef struct	s_philo
 {
@@ -31,7 +32,10 @@ typedef struct	s_philo
 	int		nb_meals;
 	pthread_t	*thread_add;
 	pthread_t	thread;
-	pthread_mutex_t *last_meal_lock;
+	pthread_mutex_t last_meal_lock;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*speaker;
 	long			last_meal_time;
 	void		*table;
 }		t_philo;
@@ -45,6 +49,8 @@ typedef struct s_table
 	int		nb_meals;
 	int		status;
 	t_philo **philo;
+	pthread_mutex_t	**forks;
+	pthread_mutex_t	speaker;
 }				t_table;
 
 //time.c

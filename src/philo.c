@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/08 17:26:38 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/09 12:03:26 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 		return (error_format(), 1);
 	memset(&table, 0, sizeof(t_table));
 	set_table(&table, argv, argc);
+	predict_death(&table);
 	ft_create_philos(&table);
 	wait_all_threads(table.philo);
 	destroy_philos(table.philo);
