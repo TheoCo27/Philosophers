@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 19:20:59 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 15:10:04 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:59:05 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	destroy_forks(t_table *table)
 void	clean_philo(t_philo *philo)
 {
 	pthread_mutex_destroy(&philo->last_meal_lock);
+	pthread_mutex_destroy(&philo->nb_meals_lock);
 }
 
 void	clean_table(t_table *table)

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 15:33:23 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:56:21 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*speaker;
+	pthread_mutex_t	nb_meals_lock;
 	int			last_meal_time;
 	void		*table;
 }		t_philo;

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 19:57:00 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/10 18:12:10 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	philo_eat(t_philo *philo)
 	safe_speak("has taken left fork", philo->speaker, philo);
 	safe_speak("has taken right fork", philo->speaker, philo);
 	safe_speak("is eating", philo->speaker, philo);
-	safe_edit(&philo->last_meal_time, get_timestamp(), &philo->last_meal_lock);
 	usleep(philo->time_eat * 1000);
+	safe_edit(&philo->last_meal_time, get_timestamp(), &philo->last_meal_lock);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	safe_edit(&philo->nb_meals, (philo->nb_meals + 1), &philo->nb_meals_lock);
 }
 
 void	philo_sleep(t_philo *philo)
 {
 	safe_speak("is sleeping", philo->speaker, philo);
-	usleep(philo->time_sleep);
+	usleep(philo->time_sleep * 1000);
 }
 
 void	*routine(void *arg)

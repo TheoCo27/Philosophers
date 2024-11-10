@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 15:26:02 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/10 16:58:23 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	set_table(t_table *table, char **argv, int argc)
 void	set_philo(t_philo *philo, int i, t_table *table)
 {
 	philo->id = i + 1;
-	philo->nb_meals = table->nb_meals;
+	philo->nb_meals = 0;
 	philo->time_die = table->time_die;
 	philo->time_eat = table->time_eat;
 	philo->time_sleep = table->time_sleep;
@@ -63,6 +63,7 @@ void	set_philo(t_philo *philo, int i, t_table *table)
 	if (table->nb_philo != 1 && philo->id != table->nb_philo)
 		philo->right_fork = table->forks[i + 1];
 	pthread_mutex_init(&philo->last_meal_lock, NULL);
+	pthread_mutex_init(&philo->nb_meals_lock, NULL);
 	philo->speaker = &table->speaker;
 }
 
