@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 18:12:10 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 12:26:17 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,20 @@
 
 void	philo_eat(t_philo *philo)
 {
+	t_table *table;
+
+	table = (t_table *)philo->table;
+	if (table->nb_philo == 1)
+	{
+		safe_speak("has taken left fork", philo->speaker, philo);
+		usleep((philo->time_die + 1) * 1000);
+		return ;
+	}
 	pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(philo->right_fork);
 	safe_speak("has taken left fork", philo->speaker, philo);
+	pthread_mutex_lock(philo->right_fork);
 	safe_speak("has taken right fork", philo->speaker, philo);
-	safe_speak("is eating", philo->speaker, philo);
+	safe_speak("\033[32mis eating\033[0m", philo->speaker, philo);
 	usleep(philo->time_eat * 1000);
 	safe_edit(&philo->last_meal_time, get_timestamp(), &philo->last_meal_lock);
 	pthread_mutex_unlock(philo->left_fork);
@@ -66,7 +75,6 @@ int main(int argc, char **argv)
 		return (error_format(), 1);
 	memset(&table, 0, sizeof(t_table));
 	set_table(&table, argv, argc);
-	predict_death(&table);
 	ft_create_philos(&table);
 	watch_philos(&table);
 	wait_all_threads(table.philo);

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:02:06 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 18:52:27 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 13:53:57 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,115 @@
 
 int	check_nb_meals(t_philo *philo, int nb_meals)
 {
-	int result;
+	int	result;
 
 	result = safe_read(&philo->nb_meals, &philo->nb_meals_lock);
 	if (result == nb_meals)
+	{
 		return (1);
+	}
 	else
 		return (0);
 }
 
+void	update_status(t_table *table, t_philo *philo, int mode)
+{
+	if (mode == 0)
+	{
+		safe_speak("\033[31mdied\033[0m", &table->speaker, philo);
+		safe_edit(&table->status, KO, &table->status_lock);
+	}
+	if (mode == 1)
+	{
+		safe_edit(&table->status, KO, &table->status_lock);
+	}
+}
+
+void	init_watcher(t_watcher *w, t_table *table)
+{
+	w->philo = table->philo[w->i];
+	w->l = safe_read(&w->philo->last_meal_time, &w->philo->last_meal_lock);
+}
 
 void	watch_philos(t_table *table)
 {
-	int i;
-	t_philo *philo;
-	int last_meal;
-	int	eat_enough;
+	t_watcher	w;
 
-	eat_enough = 0;
-	while(safe_read(&table->status, &table->status_lock) != KO)
+	w.eat_enough = 0;
+	while (safe_read(&table->status, &table->status_lock) != KO)
 	{
-		i = 0;
-		while(i < table->nb_philo)
+		w.i = 0;
+		while (w.i < table->nb_philo)
 		{
-			philo = table->philo[i];
-			last_meal = safe_read(&philo->last_meal_time, &philo->last_meal_lock);
-			if ((get_timestamp() - last_meal) >  table->time_die)
+			init_watcher(&w, table);
+			if ((get_timestamp() - w.l) > table->time_die)
 			{
-				safe_speak("died", &table->speaker, philo);
-				safe_edit(&table->status, KO, &table->status_lock);
-				break;
+				update_status(table, w.philo, 0);
+				break ;
 			}
-			if (table->nb_meals != -1)
+			if (safe_read(&table->status, &table->status_lock) != KO
+				&& table->nb_meals != -1)
 			{
-				eat_enough += check_nb_meals(philo, table->nb_meals);
-				if (eat_enough == table->nb_philo)
-				{
-					safe_edit(&table->status, KO, &table->status_lock);
-					break;
-				}
+				w.eat_enough += check_nb_meals(w.philo, table->nb_meals);
+				if (w.eat_enough == table->nb_philo)
+					update_status(table, w.philo, 1);
 			}
-			i++;
+			w.i++;
 			usleep(1);
 		}
 	}
 }
+
+int	meal_counter(int eat_enough, t_philo *philo, t_table *table)
+{
+	eat_enough += check_nb_meals(philo, table->nb_meals);
+	if (eat_enough == table->nb_philo)
+	{
+		safe_edit(&table->status, KO, &table->status_lock);
+		safe_annoucement("All philos have eaten enough", &table->speaker);
+	}
+	return (eat_enough);
+}
+
+// void	while_philo(t_table *table, int i, int last_meal, int eat_enough)
+// {
+// 	t_philo *philo;
+	
+// 	while(i < table->nb_philo)
+// 	{
+// 		philo = table->philo[i];
+// 		last_meal = safe_read(&philo->last_meal_time, &philo->last_meal_lock);
+// 		if ((get_timestamp() - last_meal) >  table->time_die)
+// 		{
+// 			safe_speak("died", &table->speaker, philo);
+// 			safe_edit(&table->status, KO, &table->status_lock);
+// 			break;
+// 		}
+// 		if (table->nb_meals != -1)
+// 		{
+// 			eat_enough += check_nb_meals(philo, table->nb_meals);
+// 			if (eat_enough == table->nb_philo)
+// 			{
+// 				safe_annoucement("All philos have eaten enough", &table->speaker);
+// 				safe_edit(&table->status, KO, &table->status_lock);
+// 				break;
+// 			}
+// 		}
+// 		i++;
+// 		usleep(1);
+// 	}
+// }
+// void	watch_philos(t_table *table)
+// {
+// 	int i;
+// 	int last_meal;
+// 	int	eat_enough;
+
+// 	eat_enough = 0;
+// 	last_meal = 0;
+// 	while(safe_read(&table->status, &table->status_lock) != KO)
+// 	{
+// 		i = 0;
+// 		while_philo(table, i, last_meal, eat_enough);
+// 	}
+// }

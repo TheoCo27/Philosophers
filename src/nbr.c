@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nbr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:29:28 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/01 21:55:39 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/10 21:11:12 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,9 @@ long	ft_atol(const char *str)
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
+	if (result * sign > __INT_MAX__)
+		error_int();
+	if (result * sign < -2147483648)
+		error_int();
 	return (result * sign);
 }

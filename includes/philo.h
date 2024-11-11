@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 16:56:21 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 13:40:18 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_philo
 	int		time_eat;
 	int		time_sleep;
 	int		nb_meals;
+	int		enough_meals;
 	pthread_t	*thread_add;
 	pthread_t	thread;
 	pthread_mutex_t last_meal_lock;
@@ -55,9 +56,18 @@ typedef struct s_table
 	pthread_mutex_t	status_lock;
 }				t_table;
 
+typedef struct s_watcher
+{
+	int i;
+	t_philo *philo;
+	int l;
+	int	eat_enough;
+}		t_watcher;
+
 //time.c
 int	put_timestamp(int reset);
 int	get_timestamp(void);
+int	get_start_time(int reset);
 //nbr.c
 int		ft_isnbr(char *str);
 long	ft_atol(const char *str);
@@ -68,6 +78,7 @@ size_t	ft_strlen(const char *s);
 void	ft_putstr_fd(char *s, int fd);
 //error.c
 void	error_format(void);
+void	error_int(void);
 //set.c
 void	set_table(t_table *table, char **argv, int argc);
 int	ft_create_philos(t_table *table);
@@ -87,6 +98,7 @@ void	destroy_philos(t_philo **philo);
 int	safe_read(int *to_read, pthread_mutex_t *lock);
 int	safe_edit(int *to_edit, int update, pthread_mutex_t *lock);
 int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo);
+int safe_annoucement(char *to_say, pthread_mutex_t *lock);
 //prediction.c
 void	predict_death(t_table *table);
 //watchers.c

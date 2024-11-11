@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 16:58:23 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 11:45:07 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	set_philo(t_philo *philo, int i, t_table *table)
 	pthread_mutex_init(&philo->last_meal_lock, NULL);
 	pthread_mutex_init(&philo->nb_meals_lock, NULL);
 	philo->speaker = &table->speaker;
+	philo->enough_meals = 0;
 }
 
 int	ft_create_philos(t_table *table)
