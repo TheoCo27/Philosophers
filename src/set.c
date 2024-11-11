@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 16:11:18 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 16:16:17 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	set_forks_mutex(t_table *table)
 
 int	check_table_data(t_table *table)
 {
-	if (table->nb_philo < 0 || table->time_die < 0 || table->time_eat < 0 || table->time_sleep < 0 || table->nb_meals == -2)
+	if (table->nb_philo < 0 || table->time_die < 0 || table->time_eat < 0
+		|| table->time_sleep < 0 || table->nb_meals == -2)
 		return (error_int(), 1);
 	return (0);
 }
