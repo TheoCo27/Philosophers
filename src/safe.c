@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:09:08 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 14:09:03 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 21:07:40 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
 	if (safe_read(&table->status, &table->status_lock) == KO)
 		return (0);
 	time_stamp = get_timestamp();
-	pthread_mutex_lock(lock);
+	// pthread_mutex_lock(lock);
 	printf("%ld %d %s\n", time_stamp, philo->id, to_say);
-	pthread_mutex_unlock(lock);
+	// pthread_mutex_unlock(lock);
+	(void)lock;
 	return (0);
 }
 

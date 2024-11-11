@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   watcher.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:02:06 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 13:55:44 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 22:03:32 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	check_nb_meals(t_philo *philo, int nb_meals)
 	int	result;
 
 	result = safe_read(&philo->nb_meals, &philo->nb_meals_lock);
-	if (result == nb_meals)
+	if (result == nb_meals && philo->enough_meals == 0)
 	{
+		philo->enough_meals = 1;
 		return (1);
 	}
 	else
@@ -56,16 +57,13 @@ void	watch_philos(t_table *table)
 		{
 			init_watcher(&w, table);
 			if ((get_timestamp() - w.l) > table->time_die)
-			{
-				update_status(table, w.philo, 0);
-				break ;
-			}
+				return (update_status(table, w.philo, 0));
 			if (safe_read(&table->status, &table->status_lock) != KO
 				&& table->nb_meals != -1)
 			{
 				w.eat_enough += check_nb_meals(w.philo, table->nb_meals);
 				if (w.eat_enough == table->nb_philo)
-					update_status(table, w.philo, 1);
+					return (update_status(table, w.philo, 1));
 			}
 			w.i++;
 			usleep(1);
