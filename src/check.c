@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:24:09 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/01 15:55:33 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 14:11:02 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	ft_check_argc(int argc)
 	return (0);
 }
 
-static int ft_check_argv(char **argv)
+static int	ft_check_argv(char **argv)
 {
 	char	**tab;
 	int		i;
 
 	tab = argv + 1;
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		if (ft_isnbr(tab[i]) == 0)
 			return (1);
@@ -35,7 +35,7 @@ static int ft_check_argv(char **argv)
 	return (0);
 }
 
-int ft_check_arg(int argc, char **argv)
+int	ft_check_arg(int argc, char **argv)
 {
 	if (ft_check_argc(argc) == 1)
 		return (1);

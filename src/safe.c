@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:09:08 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 12:21:35 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 14:09:03 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	safe_edit(int *to_edit, int update, pthread_mutex_t *lock)
 	return (update);
 }
 
-int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
+int	safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
 {
 	long	time_stamp;
-	t_table *table;
+	t_table	*table;
 
 	table = (t_table *)philo->table;
 	if (safe_read(&table->status, &table->status_lock) == KO)
@@ -45,7 +45,7 @@ int safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
 	return (0);
 }
 
-int safe_annoucement(char *to_say, pthread_mutex_t *lock)
+int	safe_annoucement(char *to_say, pthread_mutex_t *lock)
 {
 	long	time_stamp;
 

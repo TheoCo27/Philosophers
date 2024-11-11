@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:21:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/09 16:27:30 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 14:10:30 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_time(void)
 {
 	struct timeval	tv;
-	int			timestamp_ms;
+	int				timestamp_ms;
 
 	memset(&tv, 0, sizeof(struct timeval));
 	timestamp_ms = 0;
@@ -48,12 +48,11 @@ int	get_timestamp(void)
 	return (timestamp_ms);
 }
 
-
 int	put_timestamp(int reset)
 {
 	struct timeval	tv;
 	static int		start_timestamp;
-	int			timestamp_ms;
+	int				timestamp_ms;
 
 	if (reset == 1)
 		return (start_timestamp = 0, 0);

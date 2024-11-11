@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:29:28 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 21:11:12 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 14:13:17 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static int	ft_isdigit(int c)
 	return ((c >= '0') && (c <= '9'));
 }
 
-int ft_isnbr(char *str)
+int	ft_isnbr(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (i == 0 && (str[i] == '+') && ft_isdigit(str[i + 1]) == 0)
 			return (0);
@@ -34,6 +34,7 @@ int ft_isnbr(char *str)
 	}
 	return (1);
 }
+
 long	ft_atol(const char *str)
 {
 	long	result;

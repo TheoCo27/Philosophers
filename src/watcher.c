@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:02:06 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 13:53:57 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 13:55:44 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,46 +83,3 @@ int	meal_counter(int eat_enough, t_philo *philo, t_table *table)
 	}
 	return (eat_enough);
 }
-
-// void	while_philo(t_table *table, int i, int last_meal, int eat_enough)
-// {
-// 	t_philo *philo;
-	
-// 	while(i < table->nb_philo)
-// 	{
-// 		philo = table->philo[i];
-// 		last_meal = safe_read(&philo->last_meal_time, &philo->last_meal_lock);
-// 		if ((get_timestamp() - last_meal) >  table->time_die)
-// 		{
-// 			safe_speak("died", &table->speaker, philo);
-// 			safe_edit(&table->status, KO, &table->status_lock);
-// 			break;
-// 		}
-// 		if (table->nb_meals != -1)
-// 		{
-// 			eat_enough += check_nb_meals(philo, table->nb_meals);
-// 			if (eat_enough == table->nb_philo)
-// 			{
-// 				safe_annoucement("All philos have eaten enough", &table->speaker);
-// 				safe_edit(&table->status, KO, &table->status_lock);
-// 				break;
-// 			}
-// 		}
-// 		i++;
-// 		usleep(1);
-// 	}
-// }
-// void	watch_philos(t_table *table)
-// {
-// 	int i;
-// 	int last_meal;
-// 	int	eat_enough;
-
-// 	eat_enough = 0;
-// 	last_meal = 0;
-// 	while(safe_read(&table->status, &table->status_lock) != KO)
-// 	{
-// 		i = 0;
-// 		while_philo(table, i, last_meal, eat_enough);
-// 	}
-// }

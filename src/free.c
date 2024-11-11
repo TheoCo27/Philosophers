@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 19:20:59 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/10 21:15:58 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 14:47:16 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_philo_tab(t_philo **philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(philo[i])
+	while (philo[i])
 	{
 		free(philo[i]);
 		i++;
@@ -27,11 +27,13 @@ void	free_philo_tab(t_philo **philo)
 
 void	destroy_forks(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < table->nb_philo)
+	while (i < table->nb_philo)
 	{
+		if (table->forks[i] == NULL)
+			break ;
 		pthread_mutex_destroy(table->forks[i]);
 		free(table->forks[i]);
 		i++;
@@ -47,9 +49,6 @@ void	clean_philo(t_philo *philo)
 
 void	clean_table(t_table *table)
 {
-	int	i;
-
-	i = 0;
 	pthread_mutex_destroy(&table->speaker);
 	pthread_mutex_destroy(&table->status_lock);
 	destroy_forks(table);
@@ -57,12 +56,12 @@ void	clean_table(t_table *table)
 
 void	destroy_philos(t_philo **philo)
 {
-	int i;
-	t_table *table;
+	int		i;
+	t_table	*table;
 
 	i = 0;
 	table = (t_table *)philo[i]->table;
-	while(philo[i])
+	while (philo[i])
 	{
 		clean_philo(philo[i]);
 		i++;
