@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 15:39:12 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 15:58:45 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	philo_eat(t_philo *philo)
 		pthread_mutex_lock(philo->left_fork);
 		safe_speak("has taken left fork", philo->speaker, philo);
 		pthread_mutex_lock(philo->right_fork);
-		safe_speak("has taken right fork", philo->speaker, philo);		
+		safe_speak("has taken right fork", philo->speaker, philo);
 	}
-	if (philo->id %2 == 0)
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		safe_speak("has taken right fork", philo->speaker, philo);
@@ -84,7 +84,8 @@ int	main(int argc, char **argv)
 	if (ft_check_arg(argc, argv) == 1)
 		return (error_format(), 1);
 	memset(&table, 0, sizeof(t_table));
-	set_table(&table, argv, argc);
+	if (set_table(&table, argv, argc) != 0)
+		return (1);
 	ft_create_philos(&table);
 	watch_philos(&table);
 	wait_all_threads(table.philo);

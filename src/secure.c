@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 22:15:35 by theog             #+#    #+#             */
-/*   Updated: 2024/11/11 14:17:24 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 15:56:41 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	make_thread(pthread_t *thread, void*(*routine)(void *), t_philo *philo)
 {
 	if (thread == NULL)
 	{
-		fprintf(stderr, "Invalid argument: thread is NULL\n");
+		ft_putstr_fd("Invalid argument: thread is NULL\n", 2);
 		return (1);
 	}
 	if (routine == NULL)
 	{
-		fprintf(stderr, "routine is NULL\n");
+		ft_putstr_fd("routine is NULL\n", 2);
 		return (1);
 	}
 	if (pthread_create(thread, NULL, routine, philo) != 0)

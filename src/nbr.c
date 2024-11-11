@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:29:28 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 14:13:17 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 16:10:12 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (result * sign > __INT_MAX__)
-		error_int();
+		return (-2);
 	if (result * sign < -2147483648)
-		error_int();
+		return (-2);
 	return (result * sign);
 }

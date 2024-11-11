@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 14:57:10 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 16:11:18 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	set_forks_mutex(t_table *table)
 	if (!table->forks)
 		return (ft_putstr_fd("malloc failed\n", 2), -1);
 	i = 0;
-	while(i < table->nb_philo)
+	while (i < table->nb_philo)
 	{
 		table->forks[i] = malloc(sizeof(pthread_mutex_t));
-        if (!table->forks[i])
-        {
+		if (!table->forks[i])
+		{
 			destroy_forks(table);
-			return (-1);
+			return (ft_putstr_fd("malloc failed\n", 2), -1);
 		}
 		pthread_mutex_init(table->forks[i], NULL);
 		i++;
@@ -34,11 +34,18 @@ int	set_forks_mutex(t_table *table)
 	return (0);
 }
 
-void	set_table(t_table *table, char **argv, int argc)
+int	check_table_data(t_table *table)
+{
+	if (table->nb_philo < 0 || table->time_die < 0 || table->time_eat < 0 || table->time_sleep < 0 || table->nb_meals == -2)
+		return (error_int(), 1);
+	return (0);
+}
+
+int	set_table(t_table *table, char **argv, int argc)
 {
 	table->nb_philo = ft_atol(argv[1]);
 	if (table->nb_philo == 0)
-		exit (0);
+		return (ft_putstr_fd("You need at least one philo\n", 2), 1);
 	table->time_die = ft_atol(argv[2]);
 	table->time_eat = ft_atol(argv[3]);
 	table->time_sleep = ft_atol(argv[4]);
@@ -47,10 +54,13 @@ void	set_table(t_table *table, char **argv, int argc)
 		table->nb_meals = ft_atol(argv[5]);
 	if (argc == 5)
 		table->nb_meals = -1;
+	if (check_table_data(table) == 1)
+		return (3);
 	pthread_mutex_init(&table->speaker, NULL);
 	pthread_mutex_init(&table->status_lock, NULL);
 	if (set_forks_mutex(table) == (-1))
-		exit (1); // a proteger
+		return (2);
+	return (0);
 }
 
 void	set_philo(t_philo *philo, int i, t_table *table)
@@ -76,8 +86,8 @@ void	set_philo(t_philo *philo, int i, t_table *table)
 
 int	ft_create_philos(t_table *table)
 {
-	int i;
-	t_philo **philos;
+	int		i;
+	t_philo	**philos;
 
 	i = 0;
 	philos = NULL;
@@ -86,11 +96,11 @@ int	ft_create_philos(t_table *table)
 		return (destroy_forks(table), -1);
 	philos = table->philo;
 	philos[table->nb_philo] = NULL;
-	while(i < table->nb_philo)
+	while (i < table->nb_philo)
 	{
 		philos[i] = malloc(sizeof(t_philo));
 		if (!philos[i])
-			return(destroy_philos(philos), -1);//free_all
+			return (destroy_philos(philos), -1);
 		set_philo(philos[i], i, table);
 		i++;
 	}

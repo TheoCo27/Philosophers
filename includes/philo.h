@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:56:42 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 14:54:31 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/11 15:59:09 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	error_format(void);
 void	error_int(void);
 //set.c
-void	set_table(t_table *table, char **argv, int argc);
+int		set_table(t_table *table, char **argv, int argc);
 int		ft_create_philos(t_table *table);
 //print.c
 void	print_table(t_table *table);
