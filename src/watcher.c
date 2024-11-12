@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:02:06 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 22:03:32 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/12 14:54:50 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	update_status(t_table *table, t_philo *philo, int mode)
 {
 	if (mode == 0)
 	{
+		if (philo->enough_meals == 1)
+			return ;
 		safe_speak("\033[31mdied\033[0m", &table->speaker, philo);
 		safe_edit(&table->status, KO, &table->status_lock);
 	}

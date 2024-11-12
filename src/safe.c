@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 20:09:08 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 21:07:40 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/12 14:53:14 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	safe_speak(char *to_say, pthread_mutex_t *lock, t_philo *philo)
 	t_table	*table;
 
 	table = (t_table *)philo->table;
+	if (philo->enough_meals == 1)
+		return (0);
 	if (safe_read(&table->status, &table->status_lock) == KO)
 		return (0);
 	time_stamp = get_timestamp();

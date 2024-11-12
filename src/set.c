@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/11 16:16:17 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/12 15:20:00 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	set_table(t_table *table, char **argv, int argc)
 	table->time_die = ft_atol(argv[2]);
 	table->time_eat = ft_atol(argv[3]);
 	table->time_sleep = ft_atol(argv[4]);
-	table->status = OK;
+	table->status = KO;
 	if (argc == 6)
 		table->nb_meals = ft_atol(argv[5]);
 	if (argc == 5)

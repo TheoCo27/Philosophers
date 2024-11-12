@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   secure.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 22:15:35 by theog             #+#    #+#             */
-/*   Updated: 2024/11/11 15:56:41 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/12 15:22:22 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	make_thread(pthread_t *thread, void*(*routine)(void *), t_philo *philo)
 	}
 	if (pthread_create(thread, NULL, routine, philo) != 0)
 		return (ft_putstr_fd("couldn't create thread\n", 2), 1);
+
 	return (0);
 }
 
@@ -53,8 +54,10 @@ int	wait_all_threads(t_philo **philo)
 int	make_all_threads(t_philo **philo)
 {
 	int	i;
+	t_table *table;
 
 	i = 0;
+	table = philo[i]->table;
 	while (philo[i])
 	{
 		if (make_thread(&(philo[i]->thread), &routine, philo[i]) != 0)
@@ -62,5 +65,6 @@ int	make_all_threads(t_philo **philo)
 		philo[i]->thread_add = &(philo[i]->thread);
 		i++;
 	}
+	table->status = OK;
 	return (0);
 }
