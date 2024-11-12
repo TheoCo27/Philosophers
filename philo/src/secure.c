@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 22:15:35 by theog             #+#    #+#             */
-/*   Updated: 2024/11/12 16:48:17 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/12 20:08:31 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	make_thread(pthread_t *thread, void*(*routine)(void *), t_philo *philo)
 	}
 	if (pthread_create(thread, NULL, routine, philo) != 0)
 		return (ft_putstr_fd("couldn't create thread\n", 2), 1);
-
 	return (0);
 }
 
@@ -53,8 +52,8 @@ int	wait_all_threads(t_philo **philo)
 
 int	make_all_threads(t_philo **philo)
 {
-	int	i;
-	t_table *table;
+	int		i;
+	t_table	*table;
 
 	i = 0;
 	table = philo[i]->table;

@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/12 16:53:43 by tcohen           ###   ########.fr       */
+/*   Updated: 2024/11/12 20:06:59 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,8 @@ void	*routine(void *arg)
 		usleep((philo->id - 1) * philo->time_eat / 2 * 1000);
 	while (safe_read(&table->status, &table->status_lock) == OK)
 	{
-		//if (safe_read(&table->status, &table->status_lock) == OK)
 		philo_eat(philo);
-		// if (safe_read(&philo->nb_meals, &philo->nb_meals_lock) == table->nb_meals)
-		// 	break ;
-		//if (safe_read(&table->status, &table->status_lock) == OK)
 		philo_sleep(philo);
-		//if (safe_read(&table->status, &table->status_lock) == OK)
 		safe_speak("is thinking", &table->speaker, philo);
 		usleep(1);
 	}
