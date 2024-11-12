@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   secure.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 22:15:35 by theog             #+#    #+#             */
-/*   Updated: 2024/11/12 15:22:22 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:48:17 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int	make_all_threads(t_philo **philo)
 		philo[i]->thread_add = &(philo[i]->thread);
 		i++;
 	}
-	table->status = OK;
+	safe_edit(&table->status, OK, &table->status_lock);
 	return (0);
 }

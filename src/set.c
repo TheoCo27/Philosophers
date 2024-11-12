@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:30 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/12 15:20:00 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:46:13 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_create_philos(t_table *table)
 		set_philo(philos[i], i, table);
 		i++;
 	}
-	make_all_threads(philos);
+	if (make_all_threads(philos) != 0)
+		return (1);
 	return (0);
 }

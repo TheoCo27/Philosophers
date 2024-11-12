@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:59:23 by tcohen            #+#    #+#             */
-/*   Updated: 2024/11/12 15:11:29 by theog            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:53:43 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,24 @@ void	*routine(void *arg)
 	t_philo	*philo;
 	t_table	*table;
 
+	usleep (1);
 	philo = (t_philo *)arg;
 	table = (t_table *)philo->table;
+	philo->last_meal_time = get_timestamp();
 	if (table->nb_philo % 2 == 0 && philo->id % 2 == 0)
 		usleep(philo->time_eat * 1000);
 	if (table->nb_philo % 2 != 0)
 		usleep((philo->id - 1) * philo->time_eat / 2 * 1000);
 	while (safe_read(&table->status, &table->status_lock) == OK)
 	{
-		if (safe_read(&table->status, &table->status_lock) == OK)
-			philo_eat(philo);
+		//if (safe_read(&table->status, &table->status_lock) == OK)
+		philo_eat(philo);
 		// if (safe_read(&philo->nb_meals, &philo->nb_meals_lock) == table->nb_meals)
 		// 	break ;
-		if (safe_read(&table->status, &table->status_lock) == OK)
-			philo_sleep(philo);
-		if (safe_read(&table->status, &table->status_lock) == OK)
-			safe_speak("is thinking", &table->speaker, philo);
+		//if (safe_read(&table->status, &table->status_lock) == OK)
+		philo_sleep(philo);
+		//if (safe_read(&table->status, &table->status_lock) == OK)
+		safe_speak("is thinking", &table->speaker, philo);
 		usleep(1);
 	}
 	return (NULL);
@@ -90,7 +92,8 @@ int	main(int argc, char **argv)
 	memset(&table, 0, sizeof(t_table));
 	if (set_table(&table, argv, argc) != 0)
 		return (1);
-	ft_create_philos(&table);
+	if (ft_create_philos(&table) != 0)
+		return (1);
 	watch_philos(&table);
 	wait_all_threads(table.philo);
 	destroy_philos(table.philo);
